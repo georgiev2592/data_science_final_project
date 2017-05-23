@@ -13,8 +13,8 @@ You are expected to work on this project in pairs, although you can work individ
 
 ### Deliverables
 - A directory containing the following notebooks:
-- - Data Collection and Cleaning: This notebook should contain all code that you wrote to collect and clean the data.
-- - Data Exploration: This notebook should contain all code that you wrote as you were exploring the data. It should contain results and visualizations.
-- - Machine Learning: This notebook should contain the code that you wrote to determine what model to fit and to analyze the performance of the model you ultimately chose.
-- - Presentation: This is a notebook containing just the highlights from your analyses above. It should not contain much code, unless the code is important for understanding the analysis.
+	- Data Collection and Cleaning: This notebook should contain all code that you wrote to collect and clean the data.
+	- Data Exploration: This notebook should contain all code that you wrote as you were exploring the data. It should contain results and visualizations.
+	- Machine Learning: This notebook should contain the code that you wrote to determine what model to fit and to analyze the performance of the model you ultimately chose.
+	- Presentation: This is a notebook containing just the highlights from your analyses above. It should not contain much code, unless the code is important for understanding the analysis.
 - A 5-10 minute in-class presentation about your findings.
