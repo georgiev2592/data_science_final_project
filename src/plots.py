@@ -260,11 +260,9 @@ def out_of_sample_forecast_arima(data):
     print('Test RMSE: %.3f' % test_score)
     
     # plot predictions vs observations
-    ml_plot_helper(data_test.index, [tests, predictions], ['Test', 'Forecast'], 'Line Plot of Predicted Values vs Test Dataset - San Luis Obispo, CA')
+    ml_plot_helper(data[split_point:]["date"], [tests, predictions], ['Test', 'Forecast'], 'Line Plot of Predicted Values vs Test Dataset - San Luis Obispo, CA')
     
 def fixed_autoregression_forecast(data):
-    df = pd.concat([data['temp_f_low'].shift(1), data['temp_f_low']], axis=1)
-    
     # split into train and test sets
     X = data['temp_f_low'].values
 
@@ -284,11 +282,9 @@ def fixed_autoregression_forecast(data):
     print('\nTest RMSE: %.3f' % error)
     
     # plot results
-    ml_plot_helper(df[len(X) - 7:].index, [test, predictions], ['Test', 'Forecast'], 'Predictions From Fixed AR Model')
+    ml_plot_helper(data[len(X) - 7:]["date"], [test, predictions], ['Test', 'Forecast'], 'Predictions From Fixed AR Model')
     
 def rolling_autoregression_forecast(data):
-    df = pd.concat([data['temp_f_low'].shift(1), data['temp_f_low']], axis=1)
-    
     # split into train and test sets
     X = data['temp_f_low'].values
 
@@ -320,4 +316,4 @@ def rolling_autoregression_forecast(data):
     print('\nTest RMSE: %.3f' % error)
     
     # plot
-    ml_plot_helper(df[len(X) - 7:].index, [test, predictions], ['Test', 'Forecast'], 'Predictions From Rolling AR Model')
+    ml_plot_helper(data[len(X) - 7:]["date"], [test, predictions], ['Test', 'Forecast'], 'Predictions From Rolling AR Model')
