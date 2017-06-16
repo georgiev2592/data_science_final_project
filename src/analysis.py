@@ -70,15 +70,30 @@ def predict_finals_week(data):
             # train autoregression
             model = AR(X)
             model_fit = model.fit()
-            
+            window = model_fit.k_ar
+            coef = model_fit.params
+
             raw_data[ndx] = []
-            
+
             # make predictions
-            predictions = model_fit.predict(start=len(X), end=len(X)+7, dynamic=False)
+            history = X[len(X)-window:]
+            history = [history[i] for i in range(len(history))]
+            predictions = list()
+
+            for t in range(8):
+                length = len(history)
+                lag = [history[i] for i in range(length-window,length)]
+                yhat = coef[0]
+
+                for d in range(window):
+                    yhat += coef[d+1] * lag[window-d-1]
+
+                predictions.append(yhat)
+                history.append(yhat)
 
             for prediction in predictions:
                 raw_data[ndx].append(prediction)
-            
+
             dfs.append(pd.DataFrame(raw_data))
         except:
             continue
