@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 
 from sklearn.metrics import mean_squared_error
+from statsmodels.tsa.ar_model import AR
 
 def calc_RMSE_for(train, test, func):
     # walk-forward validation
@@ -53,3 +54,33 @@ def difference(data, interval=1):
 
 def inverse_difference(history, yhat, interval=1):
     return yhat + history[-interval]
+
+def predict_finals_week(data):
+    dfs = []
+    
+    dfs.append(pd.DataFrame({"date": ["2017-06-12", "2017-06-13", "2017-06-14", "2017-06-15", "2017-06-16", "2017-06-17", "2017-06-18", "2017-06-19"]}))
+    
+    for ndx in data.columns:
+        raw_data = {}
+        
+        # split into train and test sets
+        X = data[ndx].values
+        
+        try:
+            # train autoregression
+            model = AR(X)
+            model_fit = model.fit()
+            
+            raw_data[ndx] = []
+            
+            # make predictions
+            predictions = model_fit.predict(start=len(X), end=len(X)+7, dynamic=False)
+
+            for prediction in predictions:
+                raw_data[ndx].append(prediction)
+            
+            dfs.append(pd.DataFrame(raw_data))
+        except:
+            continue
+            
+    return pd.concat(dfs, axis=1)
